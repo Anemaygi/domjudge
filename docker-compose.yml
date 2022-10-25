@@ -13,6 +13,8 @@ services:
     env_file: .env
     ports:
       - 12345:80 
+    depends_on: 
+      - mariadb
   mariadb:
     image: mariadb:10.9
     command: ["--max-connections=1000"] 
