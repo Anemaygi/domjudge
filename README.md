@@ -1,1 +1,3 @@
+# DomJudge
+
 docker compose -d
