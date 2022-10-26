@@ -19,4 +19,6 @@ services:
     image: mariadb:10.9
     command: ["--max-connections=1000"] 
     env_file: .env
+    volumes:
+      - $PWD/data/:/var/lib/mysql/
 

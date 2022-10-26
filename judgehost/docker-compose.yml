@@ -11,6 +11,8 @@ services:
     image: mariadb:10.9
     command: ["--max-connections=1000"] 
     env_file: .env
+    volumes:
+      - $PWD/data/:/var/lib/mysql/
 
   domserver:
     image: domjudge/domserver:8.1.3
@@ -25,7 +27,7 @@ services:
     hostname: judgedaemon-0
     privileged: true
     volumes:
-     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+     - /sys/fs/cgroup/:/sys/fs/cgroup/:ro
     env_file: .env
 
 
