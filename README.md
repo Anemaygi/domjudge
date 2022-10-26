@@ -38,4 +38,4 @@
 
 depois, ir na instância e parar a instância
 
-![instancia](https://i.imgur.com/TzXdkjX.png) 
+![instancia](https://i.imgur.com/7Jn51Ad.png) 
