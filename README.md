@@ -36,6 +36,6 @@
 
 `docker compose stop`
 
-ir na instância e parar a instância
+depois, ir na instância e parar a instância
 
 ![instancia](https://i.imgur.com/TzXdkjX.png) 
