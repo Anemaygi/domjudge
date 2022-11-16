@@ -25,6 +25,8 @@ services:
   judgehost:
     image: domjudge/judgehost:8.1.3
     hostname: judgedaemon-0
+    depends_on:
+      - domserver
     privileged: true
     volumes:
      - /sys/fs/cgroup/:/sys/fs/cgroup/:ro
