@@ -1,0 +1,45 @@
+#cloud-config
+
+repo_update: false
+repo_upgrade: all
+
+package_upgrade: true
+
+packages:
+  - docker
+
+runcmd:
+  - [ sh, -c, "amazon-linux-extras install -y docker" ]
+
+write_files:
+  - path: /etc/docker/daemon.json
+    owner: root:root
+    permissions: 0644
+    content: |
+      {
+        "log-driver": "none"
+      }
+  - path: /etc/sysconfig/docker
+    owner: root:root
+    permissions: 0644
+    content: |
+      DAEMON_MAXFILES=1048576
+      OPTIONS="--default-ulimit nofile=1024000:1024000"
+      DAEMON_PIDFILE_TIMEOUT=10
+    
+  - path: /etc/systemd/journald.conf
+    append: true
+    content: |
+      [Journal]
+      SystemMaxUse=500M
+      SystemMaxFileSize=100M 
+
+runcmd:
+  - usermod -a -G docker ec2-user
+  - systemctl daemon-reload
+  - systemctl enable docker
+  - systemctl start docker
+  - yum install -y jq.x86_64 git.x86_64
+  - amazon-linux-extras install epel -y
+  - curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
