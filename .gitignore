@@ -1,3 +1,5 @@
 **/.env
 **/data
 domjudge/logs
+**/.terraform*
+**/terraform.tfstate*
