@@ -8,9 +8,6 @@ package_upgrade: true
 packages:
   - docker
 
-runcmd:
-  - [ sh, -c, "amazon-linux-extras install -y docker" ]
-
 write_files:
   - path: /etc/docker/daemon.json
     owner: root:root
@@ -35,11 +32,11 @@ write_files:
       SystemMaxFileSize=100M 
 
 runcmd:
-  - usermod -a -G docker ec2-user
-  - systemctl daemon-reload
-  - systemctl enable docker
-  - systemctl start docker
+  - yum update
   - yum install -y jq.x86_64 git.x86_64
-  - amazon-linux-extras install epel -y
+  - curl -fsSL https://get.docker.com | bash
   - curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
   - chmod +x /usr/local/bin/docker-compose
+  - usermod -a -G docker ec2-user
+  - systemctl daemon-reload
+  - systemctl enable --now docker
